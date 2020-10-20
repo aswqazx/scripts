@@ -20,7 +20,7 @@ function signdaily() {
         signinfo.signdaily = JSON.parse(data)
         resolve()
       } catch (e) {
-        chavy.msg(cookieName, `日常签到: 失败`, `说明: ${e}`)
+        chavy.msg(cookieName, `日常签到: 失败`, `${data} == 说明: ${e}`)
         chavy.log(`❌ ${cookieName} signdaily - 日常签到失败: ${e}`)
         chavy.log(`❌ ${cookieName} signdaily - response: ${JSON.stringify(response)}`)
         resolve()
