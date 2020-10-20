@@ -6,7 +6,7 @@ const resultInfo = {}
 ;(exec = async () => {
   chavy.log(`🔔 ${cookieName} 开始签到`)
   await checkin()
-  showNotify()
+  await showNotify()
   chavy.done()
 })().catch((e) => chavy.log(`❌ ${cookieName} 签到失败: ${e}`), chavy.done())
 
@@ -33,21 +33,24 @@ function checkin() {
 }
 
 function showNotify() {
-  let subTitle = ''
-  let detail = ''
-  if (resultInfo.checkin) {
-    subTitle = `签到: `
-    if (!!resultInfo.checkin.signedIn) {
-      if (resultInfo.checkin.signedIn == true) {
-        subTitle += '成功; '
+  return new Promise((resolve, reject) => {
+    let subTitle = ''
+    let detail = ''
+    if (resultInfo.checkin) {
+      subTitle = `签到: `
+      if (!!resultInfo.checkin.signedIn) {
+        if (resultInfo.checkin.signedIn == true) {
+          subTitle += '成功; '
+        } else {
+          subTitle += '失败; '
+        }
       } else {
         subTitle += '失败; '
       }
-    } else {
-      subTitle += '失败; '
     }
-  }
-  chavy.notify(cookieName, subTitle, detail)
+    chavy.notify(cookieName, subTitle, detail)
+    resolve()
+  })
 }
 
 function init() {
