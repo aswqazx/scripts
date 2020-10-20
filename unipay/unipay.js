@@ -7,6 +7,7 @@ let VAL_signcookie = chavy.getdata(KEY_signcookie)
 
 ;(exec = async () => {
   chavy.log(`🔔 ${cookieName} 开始签到`)
+  chavy.log(`🔔 ${VAL_signcookie}`)
   await signdaily()
   showmsg()
   chavy.done()
