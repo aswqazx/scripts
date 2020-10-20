@@ -3,23 +3,20 @@ const cookieKey = 'cookie_unipay'
 const chavy = init()
 
 !(async () => {
-  chavy.log(`🔔 ${$.name}, 获取Cookie: 开始!`)
   const cookieVal = $request.headers['Cookie']
   if (cookieVal) {
     if (chavy.setdata(cookieVal, cookieKey)) {
-      chavy.notify(`${cookieName}`, '🔔 获取Cookie: 成功', '')
-      chavy.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${cookieVal}`)
+      chavy.notify(`${cookieName}`, '🔔获取Cookie: 成功', '')
+      chavy.log(`${cookieName}, 🔔获取Cookie: 成功, cookie: ${cookieVal}`)
     }
-  } else {
-    chavy.notify(`${cookieName}`, '获取Cookie: 失败', '')
   }
 })()
 .catch((e) => {
-  chavy.notify(`${cookieName}`, '❌ 获取Cookie: 失败', `原因: ${e}`)
-  chavy.log(`❌ ${$.name}, 获取Cookie: 失败! 原因: ${e}`)
+  chavy.notify(`${cookieName}`, '❌获取Cookie: 失败', `原因: ${e}`)
+  chavy.log(`${cookieName}, ❌获取Cookie: 失败, 原因: ${e}`)
 })
 .finally(() => {
-  chavy.log(`🔔 ${$.name}, 获取Cookie: 结束!`)
+  chavy.done()
 })
 
 function init() {
