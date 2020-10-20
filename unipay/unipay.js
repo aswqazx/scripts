@@ -3,14 +3,12 @@ const cookieKey = 'cookie_unipay'
 const chavy = init()
 const resultInfo = {}
 
-(async () => {
+async () => {
   chavy.log(`🔔 ${cookieName} 开始签到`)
   await checkin()
   showNotify()
   chavy.done()
-})().finally(() => {
-  chavy.done()
-})
+}
 
 function checkin() {
   return new Promise((resolve, reject) => {

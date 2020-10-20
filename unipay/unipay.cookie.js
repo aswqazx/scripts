@@ -2,7 +2,7 @@ const cookieName = '云闪付'
 const cookieKey = 'cookie_unipay'
 const chavy = init()
 
-(async () => {
+async () => {
   const cookieVal = $request.headers['Cookie']
   if (cookieVal) {
     if (chavy.setdata(cookieVal, cookieKey)) {
@@ -12,9 +12,8 @@ const chavy = init()
       chavy.notify(`${cookieName}`, '获取Cookie: 失败', '')
     }
   }
-})().finally(() => {
   chavy.done()
-})
+}
 
 function init() {
   isSurge = () => {
