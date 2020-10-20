@@ -2,17 +2,14 @@ const cookieName = '云闪付'
 const cookieKey = 'cookie_unipay'
 const chavy = init()
 
-async () => {
-  const cookieVal = $request.headers['Cookie']
-  if (cookieVal) {
-    if (chavy.setdata(cookieVal, cookieKey)) {
-      chavy.notify(`${cookieName}`, '获取Cookie: 成功', '')
-      chavy.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${cookieVal}`)
-    } else {
-      chavy.notify(`${cookieName}`, '获取Cookie: 失败', '')
-    }
+const cookieVal = $request.headers['Cookie']
+if (cookieVal) {
+  if (chavy.setdata(cookieVal, cookieKey)) {
+    chavy.notify(`${cookieName}`, '获取Cookie: 成功', '')
+    chavy.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${cookieVal}`)
   }
-  chavy.done()
+} else {
+  chavy.notify(`${cookieName}`, '获取Cookie: 失败', '')
 }
 
 function init() {
@@ -68,3 +65,4 @@ function init() {
     done
   }
 }
+chavy.done()
