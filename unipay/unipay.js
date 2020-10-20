@@ -51,9 +51,9 @@ function showNotify() {
         if (resultInfo.checkin.signedIn == true) {
           subTitle = '成功🎉'
           var days = 0;
-          for (var item in resultInfo.checkin.days) {
-            if (resultInfo.checkin.days[item] == 1) {
-                days++;
+          for (var i=0, len = resultInfo.checkin.days; i<len; i++){
+            if (resultInfo.checkin.days[i] == 1) {
+              days++;
             }
           }
           detail = '已签到: ' + resultInfo.checkin.coins + '天, 签到金: ' + resultInfo.checkin.coins
