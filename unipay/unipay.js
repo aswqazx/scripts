@@ -1,50 +1,55 @@
-const chavy = init()
 const cookieName = '云闪付'
-const KEY_signcookie = 'cookie_unipay'
+const cookieKey = 'cookie_unipay'
+const chavy = init()
+const resultInfo = {}
 
-const signinfo = {}
-let VAL_signcookie = chavy.getdata(KEY_signcookie)
-
-;(exec = async () => {
+(async () => {
   chavy.log(`🔔 ${cookieName} 开始签到`)
-  await signdaily()
-  showmsg()
+  await checkin()
+  showNotify()
   chavy.done()
-})().catch((e) => chavy.log(`❌ ${cookieName} 签到失败: ${e}`), chavy.done())
+})().finally(() => {
+  chavy.done()
+})
 
-function signdaily() {
+function checkin() {
   return new Promise((resolve, reject) => {
-    let url = { url: `https://youhui.95516.com/newsign/api/daily_sign_in`, headers: { Cookie: VAL_signcookie } }
+    let url = {
+      url: `https://youhui.95516.com/newsign/api/daily_sign_in`,
+      headers: {
+        Cookie: chavy.getdata(cookieKey)
+      }
+    }
     chavy.post(url, (error, response, data) => {
       try {
-        signinfo.signdaily = JSON.parse(data)
+        resultInfo.checkin = JSON.parse(data)
         resolve()
       } catch (e) {
-        chavy.msg(cookieName, `日常签到: 失败`, `${data} == 说明: ${e}`)
-        chavy.log(`❌ ${cookieName} signdaily - 日常签到失败: ${e}`)
-        chavy.log(`❌ ${cookieName} signdaily - response: ${JSON.stringify(response)}`)
+        chavy.msg(cookieName, `签到: 失败`, `${data} == 说明: ${e}`)
+        chavy.log(`❌ ${cookieName} - 签到失败: ${e}`)
+        chavy.log(`❌ ${cookieName} - response: ${JSON.stringify(response)}`)
         resolve()
       }
     })
   })
 }
 
-function showmsg() {
+function showNotify() {
   let subTitle = ''
   let detail = ''
-  if (signinfo.signdaily) {
+  if (resultInfo.checkin) {
     subTitle = `签到: `
-	if (!!signinfo.signdaily.signedIn) {
-	  if (signinfo.signdaily.signedIn == true) {
-	    subTitle += '成功; '
-	  } else {
-	    subTitle += '失败; '
-	  }
-	} else {
-	  subTitle += '失败; '
-	}
+    if (!!resultInfo.checkin.signedIn) {
+      if (resultInfo.checkin.signedIn == true) {
+        subTitle += '成功; '
+      } else {
+        subTitle += '失败; '
+      }
+    } else {
+      subTitle += '失败; '
+    }
   }
-  chavy.msg(cookieName, subTitle, detail)
+  chavy.notify(cookieName, subTitle, detail)
 }
 
 function init() {
@@ -62,7 +67,7 @@ function init() {
     if (isSurge()) return $persistentStore.write(key, val)
     if (isQuanX()) return $prefs.setValueForKey(key, val)
   }
-  msg = (title, subtitle, body) => {
+  notify = (title, subtitle, body) => {
     if (isSurge()) $notification.post(title, subtitle, body)
     if (isQuanX()) $notify(title, subtitle, body)
   }
@@ -88,5 +93,15 @@ function init() {
   done = (value = {}) => {
     $done(value)
   }
-  return { isSurge, isQuanX, msg, log, getdata, setdata, get, post, done }
+  return {
+    isSurge,
+    isQuanX,
+    notify,
+    log,
+    getdata,
+    setdata,
+    get,
+    post,
+    done
+  }
 }

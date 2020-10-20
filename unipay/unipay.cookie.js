@@ -1,15 +1,21 @@
 const cookieName = '云闪付'
 const cookieKey = 'cookie_unipay'
 const chavy = init()
-const cookieVal = $request.headers['Cookie']
-if (cookieVal) {
-  if (chavy.setdata(cookieKey, cookieVal)) {
-    chavy.msg(`${cookieName}`, '获取Cookie: 成功', '')
-    chavy.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${cookieVal}`)
-  } else {
-    chavy.msg(`${cookieName}`, '获取Cookie: 失败', '')
+
+(async () => {
+  const cookieVal = $request.headers['Cookie']
+  if (cookieVal) {
+    if (chavy.setdata(cookieVal, cookieKey)) {
+      chavy.notify(`${cookieName}`, '获取Cookie: 成功', '')
+      chavy.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${cookieVal}`)
+    } else {
+      chavy.notify(`${cookieName}`, '获取Cookie: 失败', '')
+    }
   }
-}
+})().finally(() => {
+  chavy.done()
+})
+
 function init() {
   isSurge = () => {
     return undefined === this.$httpClient ? false : true
@@ -21,11 +27,11 @@ function init() {
     if (isSurge()) return $persistentStore.read(key)
     if (isQuanX()) return $prefs.valueForKey(key)
   }
-  setdata = (key, val) => {
-    if (isSurge()) return $persistentStore.write(key, val)
-    if (isQuanX()) return $prefs.setValueForKey(key, val)
+  setdata = (val, key) => {
+    if (isSurge()) return $persistentStore.write(val, key)
+    if (isQuanX()) return $prefs.setValueForKey(val, key)
   }
-  msg = (title, subtitle, body) => {
+  notify = (title, subtitle, body) => {
     if (isSurge()) $notification.post(title, subtitle, body)
     if (isQuanX()) $notify(title, subtitle, body)
   }
@@ -51,6 +57,15 @@ function init() {
   done = (value = {}) => {
     $done(value)
   }
-  return { isSurge, isQuanX, msg, log, getdata, setdata, get, post, done }
+  return {
+    isSurge,
+    isQuanX,
+    notify,
+    log,
+    getdata,
+    setdata,
+    get,
+    post,
+    done
+  }
 }
-chavy.done()
