@@ -53,10 +53,10 @@ function showNotify() {
           var days = 0;
           for (var i=0, len = resultInfo.checkin.days; i<len; i++){
             if (resultInfo.checkin.days[i] == 1) {
-              days++;
+              days++
             }
           }
-          detail = '已签到: ' + resultInfo.checkin.coins + '天, 签到金: ' + resultInfo.checkin.coins
+          detail = '已签到: ' + days + '天, 签到金: ' + resultInfo.checkin.coins
         } else {
           subTitle = '失败❌'
         }
