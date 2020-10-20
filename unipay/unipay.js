@@ -14,7 +14,7 @@ let VAL_signcookie = chavy.getdata(KEY_signcookie)
 
 function signdaily() {
   return new Promise((resolve, reject) => {
-    let url = { url: `https://youhui.95516.com/newsign/api/daily_sign_in`, headers: { token: VAL_signcookie } }
+    let url = { url: `https://youhui.95516.com/newsign/api/daily_sign_in`, headers: { Cookie: VAL_signcookie } }
     chavy.post(url, (error, response, data) => {
       try {
         signinfo.signdaily = JSON.parse(data)
