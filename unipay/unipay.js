@@ -28,8 +28,7 @@ function checkin() {
     }
     chavy.post(url, (error, response, data) => {
       try {
-        chavy.notify(cookieName, '签到data', data)
-        chavy.log(`${cookieName}, 签到data ${data}`)
+        chavy.log(`${cookieName}, data: ${data}`)
         resultInfo.checkin = JSON.parse(data)
         resolve()
       } catch (e) {
