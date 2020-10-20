@@ -6,6 +6,8 @@ if (cookieVal) {
   if (chavy.setdata(cookieVal, cookieKey)) {
     chavy.msg(`${cookieName}`, '获取Cookie: 成功', '')
     chavy.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${cookieVal}`)
+  } else {
+    chavy.msg(`${cookieName}`, '获取Cookie: 失败', '')
   }
 }
 function init() {
