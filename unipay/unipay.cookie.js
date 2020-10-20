@@ -6,14 +6,14 @@ const chavy = init()
   const cookieVal = $request.headers['Cookie']
   if (cookieVal) {
     if (chavy.setdata(cookieVal, cookieKey)) {
-      chavy.notify(`🔔 ${cookieName}`, '获取Cookie: 成功✔️', '')
-      chavy.log(`🔔 ${cookieName}, 获取Cookie: 成功✔️, cookie: ${cookieVal}`)
+      chavy.notify(cookieName, '获取Cookie: 成功🎉', '')
+      chavy.log(`${cookieName}, 获取Cookie: 成功🎉, cookie: ${cookieVal}`)
     }
   }
 })()
 .catch((e) => {
-  chavy.notify(`🔔 ${cookieName}`, '获取Cookie: 失败❌', `原因: ${e}`)
-  chavy.log(`🔔 ${cookieName}, 获取Cookie: 失败❌, 原因: ${e}`)
+  chavy.notify(cookieName, '获取Cookie: 失败❌', `原因: ${e}`)
+  chavy.log(`${cookieName}, 获取Cookie: 失败❌, 原因: ${e}`)
 })
 .finally(() => {
   chavy.done()

@@ -4,16 +4,16 @@ const chavy = init()
 const resultInfo = {}
 
 !(async () => {
-  chavy.log(`🔔 ${cookieName} 开始签到`)
+  chavy.log(`${cookieName} 开始签到`)
   await checkin()
   await showNotify()
 })()
 .catch((e) => {
-  chavy.notify(`🔔 ${cookieName}`, '签到: 失败❌', `原因: ${e}`)
-  chavy.log(`🔔 ${cookieName}, 签到: 失败❌, 原因: ${e}`)
+  chavy.notify(cookieName, '签到: 失败❌', `原因: ${e}`)
+  chavy.log(`${cookieName}, 签到: 失败❌, 原因: ${e}`)
 })
 .finally(() => {
-  chavy.log(`🔔 ${cookieName} 结束签到`)
+  chavy.log(`${cookieName} 结束签到`)
   chavy.done()
 })
 
@@ -28,12 +28,14 @@ function checkin() {
     }
     chavy.post(url, (error, response, data) => {
       try {
+        chavy.notify(cookieName, '签到data', data)
+        chavy.log(`${cookieName}, 签到data ${data}`)
         resultInfo.checkin = JSON.parse(data)
         resolve()
       } catch (e) {
-        chavy.notify(`🔔 ${cookieName}`, '签到: 失败❌', `原因: ${e}`)
-        chavy.log(`🔔 ${cookieName} - 签到: 失败❌, 原因: ${e}`)
-        chavy.log(`🔔 ${cookieName} - response: ${JSON.stringify(response)}`)
+        chavy.notify(cookieName, '签到: 失败❌', `原因: ${e}`)
+        chavy.log(`${cookieName} - 签到: 失败❌, 原因: ${e}`)
+        chavy.log(`${cookieName} - response: ${JSON.stringify(response)}`)
         resolve()
       }
     })
@@ -48,7 +50,7 @@ function showNotify() {
       subTitle = `签到: `
       if (!!resultInfo.checkin.signedIn) {
         if (resultInfo.checkin.signedIn == true) {
-          subTitle += '成功✔️'
+          subTitle += '成功🎉'
         } else {
           subTitle += '失败❌'
         }
