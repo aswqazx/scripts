@@ -1,8 +1,7 @@
 const cookieName = '韩剧TV'
 const cookieAuthTokenKey = 'hjtv_auth-token'
 const cookieAuthUidKey = 'hjtv_auth-uid'
-const cookieSignKey = 'hjtv_sign'
-const cookieUkKey = 'hjtv_uk'
+const cookieVcKey = 'hjtv_vc'
 const chavy = init()
 const resultInfo = {}
 
@@ -28,9 +27,7 @@ function checkin() {
       headers: {
         'auth-token': chavy.getdata(cookieAuthTokenKey),
         'auth-uid': chavy.getdata(cookieAuthUidKey),
-        'sign': chavy.getdata(cookieSignKey),
-        'uk': chavy.getdata(cookieUkKey),
-        'app': 'hj'
+        'vc': chavy.getdata(cookieVcKey)
       }
     }
     chavy.get(url, (error, response, data) => {
@@ -53,6 +50,17 @@ function showNotify() {
     let subTitle = ''
     let detail = ''
     if (resultInfo.checkin) {
+      subTitle = `签到: `
+      if (!!resultInfo.checkin.success) {
+        if (resultInfo.checkin.success == true) {
+          subTitle = '成功🎉'
+          detail = '积分: ' + resultInfo.checkin.pointCount
+        } else {
+          subTitle = '失败❌'
+        }
+      } else {
+        subTitle = '失败❌'
+      }
     }
     chavy.notify(cookieName, subTitle, detail)
     resolve()
