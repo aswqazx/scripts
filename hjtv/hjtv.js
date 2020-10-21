@@ -23,10 +23,10 @@ function checkin() {
     let url = {
       url: `http://api.hanju.koudaibaobao.com/api/userPoint/checkin`,
       headers: {
-        sign: chavy.getdata(cookieKey)
+        auth-token: chavy.getdata(cookieKey)
       }
     }
-    chavy.post(url, (error, response, data) => {
+    chavy.get(url, (error, response, data) => {
       try {
         chavy.log(`${cookieName}, data: ${data}`)
         resultInfo.checkin = JSON.parse(data)

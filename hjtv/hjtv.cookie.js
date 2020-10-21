@@ -3,7 +3,7 @@ const cookieKey = 'cookie_hjtv'
 const chavy = init()
 
 !(async () => {
-  const cookieVal = $request.headers['sign']
+  const cookieVal = $request.headers['auth-token']
   if (cookieVal) {
     if (chavy.setdata(cookieVal, cookieKey)) {
       chavy.notify(cookieName, '获取Cookie: 成功🎉', '')
