@@ -1,13 +1,22 @@
 const cookieName = '韩剧TV'
-const cookieKey = 'cookie_hjtv'
+const cookieAuthTokenKey = 'hjtv_auth-token'
+const cookieAuthUidKey = 'hjtv_auth-uid'
+const cookieSignKey = 'hjtv_sign'
+const cookieUkKey = 'hjtv_uk'
 const chavy = init()
 
 !(async () => {
-  const cookieVal = $request.headers['auth-token']
-  if (cookieVal) {
-    if (chavy.setdata(cookieVal, cookieKey)) {
+  const cookieAuthTokenVal = $request.headers['auth-token']
+  const cookieAuthUidVal = $request.headers['auth-uid']
+  const cookieSignVal = $request.headers['sign']
+  const cookieUkVal = $request.headers['uk']
+  if (cookieAuthTokenVal && cookieAuthUidVal && cookieSignVal && cookieUkVal) {
+    if (chavy.setdata(cookieAuthTokenVal, cookieAuthTokenKey) 
+    && chavy.setdata(cookieAuthUidVal, cookieAuthUidKey) 
+    && chavy.setdata(cookieSignVal, cookieSignKey) 
+    && chavy.setdata(cookieUkVal, cookieUkKey)) {
       chavy.notify(cookieName, '获取Cookie: 成功🎉', '')
-      chavy.log(`${cookieName}, 获取Cookie: 成功🎉, cookie: ${cookieVal}`)
+      chavy.log(`${cookieName}, 获取Cookie: 成功🎉`)
     }
   }
 })()

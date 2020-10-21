@@ -1,5 +1,8 @@
 const cookieName = '韩剧TV'
-const cookieKey = 'cookie_hjtv'
+const cookieAuthTokenKey = 'hjtv_auth-token'
+const cookieAuthUidKey = 'hjtv_auth-uid'
+const cookieSignKey = 'hjtv_sign'
+const cookieUkKey = 'hjtv_uk'
 const chavy = init()
 const resultInfo = {}
 
@@ -23,7 +26,11 @@ function checkin() {
     let url = {
       url: `http://api.hanju.koudaibaobao.com/api/userPoint/checkin`,
       headers: {
-        auth-token: chavy.getdata(cookieKey)
+        'auth-token': chavy.getdata(cookieAuthTokenKey),
+        'auth-uid': chavy.getdata(cookieAuthUidKey),
+        'sign': chavy.getdata(cookieSignKey),
+        'uk': chavy.getdata(cookieUkKey),
+        'app': 'hj'
       }
     }
     chavy.get(url, (error, response, data) => {
