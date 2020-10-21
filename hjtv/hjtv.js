@@ -53,13 +53,13 @@ function showNotify() {
       subTitle = `签到: `
       if (!!resultInfo.checkin.success) {
         if (resultInfo.checkin.success == true) {
-          subTitle = '成功🎉'
+          subTitle += '成功🎉'
           detail = '积分: ' + resultInfo.checkin.pointCount
         } else {
-          subTitle = '失败❌'
+          subTitle += '失败❌'
         }
       } else {
-        subTitle = '失败❌'
+        subTitle += '失败❌'
       }
     }
     chavy.notify(cookieName, subTitle, detail)

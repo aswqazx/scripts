@@ -49,17 +49,17 @@ function showNotify() {
       subTitle = `签到: `
       if (!!resultInfo.checkin.signedIn) {
         if (resultInfo.checkin.signedIn == true) {
-          subTitle = '成功🎉'
+          subTitle += '成功🎉'
           var days = 0
           for (var i=0, len=resultInfo.checkin.days.length; i<len; i++){
             days += resultInfo.checkin.days[i]
           }
           detail = '已签到: ' + days + '天, 签到金: ' + resultInfo.checkin.coins
         } else {
-          subTitle = '失败❌'
+          subTitle += '失败❌'
         }
       } else {
-        subTitle = '失败❌'
+        subTitle += '失败❌'
       }
     }
     chavy.notify(cookieName, subTitle, detail)
