@@ -23,7 +23,7 @@ const resultInfo = {}
 function checkin() {
   return new Promise((resolve, reject) => {
     let url = {
-      url: `http://api.hanju.koudaibaobao.com/api/userPoint/checkin`,
+      url: `http://api.hanju.koudaibaobao.com/api/userPoint/checkin?_ts=${Date.now()}`,
       headers: {
         'auth-token': chavy.getdata(cookieAuthTokenKey),
         'auth-uid': chavy.getdata(cookieAuthUidKey),
