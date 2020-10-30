@@ -1,0 +1,15 @@
+#!name=My Block Advertising
+#!desc=My Block Advertising for Surge iOS
+#!system=ios
+
+[General]
+
+[Rule]
+
+[URL Rewrite]
+
+[Script]
+# > QQNews
+QQNews ad = type=http-response,pattern=^https:\/\/r\.inews\.qq.com\/get(QQNewsUnreadList|RecommendList),requires-body=1,max-size=-1,script-path=https://raw.githubusercontent.com/aswqazx/scripts/main/js/QQNews.js
+
+[MITM]
