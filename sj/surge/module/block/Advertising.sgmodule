@@ -10,6 +10,6 @@
 
 [Script]
 # > QQNews
-QQNews ad = type=http-response,pattern=^https:\/\/r\.inews\.qq.com\/get(QQNewsUnreadList|RecommendList),requires-body=1,max-size=-1,script-path=https://raw.githubusercontent.com/aswqazx/scripts/main/js/QQNews.js
+QQNews ad = type=http-response,pattern=^https:\/\/r\.inews\.qq.com\/get(QQNewsUnreadList|RecommendList),requires-body=1,max-size=-1,script-path=https://raw.githubusercontent.com/aswqazx/scripts/main/js/ad/QQNews.js
 
 [MITM]
